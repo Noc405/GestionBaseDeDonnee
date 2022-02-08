@@ -1,0 +1,66 @@
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Gestion de base de donnée.exe.config
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Gestion de base de donnée.exe
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Gestion de base de donnée.pdb
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.csprojAssemblyReference.cache
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion_de_base_de_donnée.Properties.Resources.resources
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.csproj.GenerateResource.cache
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.csproj.CoreCompileInputs.cache
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.exe
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.pdb
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\BouncyCastle.Crypto.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Google.Protobuf.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Compression.LZ4.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Compression.LZ4.Streams.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Hash.xxHash.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\MySql.Data.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Buffers.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Memory.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Numerics.Vectors.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Ubiety.Dns.Core.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\ZstdNet.dll
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Google.Protobuf.pdb
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Google.Protobuf.xml
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Compression.LZ4.xml
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Compression.LZ4.Streams.xml
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Hash.xxHash.xml
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\MySql.Data.xml
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Buffers.xml
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Memory.xml
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Numerics.Vectors.xml
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.csproj.CopyComplete
+F:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion_de_base_de_donnée.ViewConnexion.resources
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Gestion de base de donnée.exe.config
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Gestion de base de donnée.exe
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Gestion de base de donnée.pdb
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\BouncyCastle.Crypto.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Google.Protobuf.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Compression.LZ4.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Compression.LZ4.Streams.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Hash.xxHash.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\MySql.Data.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Buffers.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Memory.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Numerics.Vectors.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Ubiety.Dns.Core.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\ZstdNet.dll
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Google.Protobuf.pdb
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\Google.Protobuf.xml
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Compression.LZ4.xml
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Compression.LZ4.Streams.xml
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\K4os.Hash.xxHash.xml
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\MySql.Data.xml
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Buffers.xml
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Memory.xml
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Numerics.Vectors.xml
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.csproj.AssemblyReference.cache
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion_de_base_de_donnée.ViewConnexion.resources
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion_de_base_de_donnée.Properties.Resources.resources
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.csproj.GenerateResource.cache
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.csproj.CoreCompileInputs.cache
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.csproj.CopyComplete
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.exe
+E:\04-Projets\P_MySQL\Gestion de base de donnée\Gestion de base de donnée\obj\Debug\Gestion de base de donnée.pdb
