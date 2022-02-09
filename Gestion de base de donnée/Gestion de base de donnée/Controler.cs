@@ -31,21 +31,26 @@ namespace Gestion_de_base_de_donnée
         }
 
         /// <summary>
-        /// Check if the user is logged or not
+        /// Check if the user is logged to the server or not
         /// </summary>
-        private bool _isLogged;
+        private bool _isLoggedServ = false;
 
-        public bool IsLogged
+        public bool IsLoggedServ
         {
-            get { return _isLogged; }
-            set { _isLogged = value; }
+            get { return _isLoggedServ; }
+            set { _isLoggedServ = value; }
         }
 
         /// <summary>
-        /// Command my sql
+        /// Check if the user is loggedto a db or not
         /// </summary>
-        MySqlCommand cmd;
+        private bool _isLoggedDB = false;
 
+        public bool IsLoggedDB
+        {
+            get { return _isLoggedDB; }
+            set { _isLoggedDB = value; }
+        }
 
         /// <summary>
         /// Constructor of the controler
@@ -92,7 +97,8 @@ namespace Gestion_de_base_de_donnée
                 _model.ConnectToServer(hostname, _port, username, password);
                 _model.Conn.Open();
                 _view.ConnectionSucces();
-                _isLogged = true;
+                _isLoggedServ = true;
+                ShowDB();
                 _view.Message("Connexion réussie!");
                 return true;
             }
@@ -100,103 +106,6 @@ namespace Gestion_de_base_de_donnée
             {
                 _view.Message("oops! une erreur est survenue : \n" + e.ToString());
                 return false;
-            }
-        }
-
-        #endregion
-
-        #region Create database
-
-        /// <summary>
-        /// Create a db and connect it
-        /// </summary>
-        /// <param name="dbName">The name of the db</param>
-        /// <returns>If the connection is succes</returns>
-        public bool CreateDataBase(string dbName)
-        {
-            try
-            {
-                //Write message
-                _view.Message("Créeation de la base de donnée...");
-                //Create db
-                string createDatabase = "CREATE DATABASE IF NOT EXISTS " + dbName;
-                cmd = new MySqlCommand(createDatabase, _model.Conn);
-                cmd.ExecuteNonQuery();
-
-
-                //Write message
-                _view.Message("Connexion à la base de donnée...");
-                //Connect to db
-                string connectDataBase = "USE " + dbName;
-                cmd = new MySqlCommand(connectDataBase, _model.Conn);
-                cmd.ExecuteNonQuery();
-
-                //Write end message
-                _view.Message("Connexion réussie!");
-                _model.DBName = dbName;
-                _view.ConnectionToDBSucces(_model.DBName);
-                return true;
-            }
-            catch (Exception e)
-            {
-                _view.Message(e.ToString());
-                return false;
-            }
-        }
-
-        #endregion
-
-        #region Delete Data Base
-
-        public bool DeleteDataBase(string dbName)
-        {
-            try
-            {
-                //Write message
-                _view.Message("Suppréssion de la base de donnée...");
-                //Delete db
-                string createDatabase = "DROP DATABASE " + dbName;
-                cmd = new MySqlCommand(createDatabase, _model.Conn);
-                cmd.ExecuteNonQuery();
-
-                //Write end message
-                _view.Message("Suppression réussie!");
-                return true;
-            }
-            catch (Exception e)
-            {
-                _view.Message(e.ToString());
-                return false;
-            }
-        }
-
-        #endregion
-
-        #region Login
-        /// <summary>
-        /// Log the user to a db
-        /// </summary>
-        /// <param name="dbName">Name of the db</param>
-        public void LoginDB(string dbName)
-        {
-            try
-            {
-                //Write message
-                _view.Message("Connexion à la base de donnée...");
-                //Connect to db
-                string connectDataBase = "USE " + dbName;
-                cmd = new MySqlCommand(connectDataBase, _model.Conn);
-                //Execute the command
-                cmd.ExecuteNonQuery();
-                //Write success message
-                _view.Message("Connection réussie!");
-                _model.DBName = dbName;
-                //If the connecion successed, set the variable
-                _view.ConnectionToDBSucces(_model.DBName);
-            }
-            catch (Exception e)
-            {
-                _view.Message("oops! une erreur est survenue : \n" + e.Message);
             }
         }
 
@@ -212,7 +121,7 @@ namespace Gestion_de_base_de_donnée
                 _view.Message("Deconnexion réussie!");
                 //If the user is logged out, set the variable
                 _view.Logout();
-                _isLogged = false;
+                _isLoggedServ = false;
                 _model.DBName = "";
             }
             catch (Exception e)
@@ -220,72 +129,160 @@ namespace Gestion_de_base_de_donnée
                 _view.Message("oops! Une erreur est survenue : \n" + e.Message);
             }
         }
+
         #endregion
 
-        #region Insert
+        #region DataBase Gestion
 
         /// <summary>
-        /// Verif the info that the user entered for create a new user in the db
+        /// Show the db and write it to the screen
         /// </summary>
-        /// <param name="name">The name of the new user</param>
-        /// <param name="firstname">The firstname of the new user</param>
-        /// <param name="age">The age of the new user</param>
-        /// <returns>If the values are correct</returns>
-        public bool VerifInfoUser(TextBox name, TextBox firstname, TextBox age)
+        public void ShowDB()
         {
+            _view.RestLabelDBName();
             try
             {
-                Convert.ToInt32(age.Text);
-
-                if (name.Text != "" && firstname.Text != "" && age.Text != "")
-                {
-                    _model.NameToInsert = name.Text;
-                    _model.FirstnameToInsert = firstname.Text;
-                    _model.AgeToInsert = Convert.ToInt32(age.Text);
-                    return true;
-                }
-                else
-                {
-                    _view.Message("Veuillez entrer toutes les valeures");
-                    return false;
-                }
+                _model.GetDatabases();
+                _view.WriteDBToScreen(_model.DatabasesName);
             }
             catch (Exception e)
             {
-                _view.Message("L'age doit être exprimer avec des chiffres..\n\n" + e.ToString());
+                _view.Message("oops! une erreur est survenue lors de la selection des bases de données : \n" + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Remove a db from the list
+        /// </summary>
+        /// <param name="DBNameToRemove">Name of the db to remove</param>
+        public void RemoveDataBase(string DBNameToRemove)
+        {
+            ShowDB();
+        }
+
+        /// <summary>
+        /// Add a db name to the list
+        /// </summary>
+        /// <param name="DBNameToRemove">Name of the db to add</param>
+        public void AddDataBase(string DBNameToRemove)
+        {
+            ShowDB();
+        }
+
+
+        /// <summary>
+        /// Create a db and connect it
+        /// </summary>
+        /// <param name="dbName">The name of the db</param>
+        /// <returns>If the connection is succes</returns>
+        public bool CreateDataBase(string dbName)
+        {
+            try
+            {
+                //Write message
+                _view.Message("Créeation de la base de donnée...");
+                //Create db
+                _model.QueryCMD("CREATE DATABASE IF NOT EXISTS " + dbName);
+
+
+                //Write message
+                _view.Message("Connexion à la base de donnée...");
+                //Connect to db
+                _model.QueryCMD("USE " + dbName);
+
+                //Write end message
+                _view.Message("Connexion réussie!");
+                _model.DBName = dbName;
+                _view.ConnectionToDBSucces(_model.DBName);
+                _model.GetTable();
+                IsLoggedDB = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+                _view.Message(e.ToString());
+                return false;
+            }
+        }
+
+        public bool DeleteDataBase(string dbName)
+        {
+            try
+            {
+                //Write message
+                _view.Message("Suppréssion de la base de donnée...");
+                //Delete db
+                _model.QueryCMD("DROP DATABASE " + dbName);
+
+                //Write end message
+                _view.Message("Suppression réussie!");
+                return true;
+            }
+            catch (Exception e)
+            {
+                _view.Message(e.ToString());
                 return false;
             }
         }
 
         /// <summary>
-        /// Insert a user into the db if the value are checked
+        /// Log the user to a db
         /// </summary>
-        /// <param name="canCreate">TRUE if the values are ready to create a user</param>
-        public void InsertUser(bool canCreate)
+        /// <param name="dbName">Name of the db</param>
+        public bool LoginDB(string dbName)
         {
-            if (canCreate)
+            try
             {
-                try
+                //Write message
+                _view.Message("Connexion à la base de donnée...");
+                //Connect to db
+                _model.QueryCMD("USE " + dbName);
+                //Write success message
+                _view.Message("Connection réussie!");
+                _model.DBName = dbName;
+                //If the connecion successed, set the variable
+                _view.ConnectionToDBSucces(_model.DBName);
+                _model.GetTable();
+                IsLoggedDB = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+                _view.Message("oops! une erreur est survenue : \n" + e.Message);
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Table
+
+        /// <summary>
+        /// Check if the user is connected to a db and if the table exists, then connect to the table for show it
+        /// </summary>
+        /// <param name="tableName">Name of the table</param>
+        public void GoToTable(string tableName)
+        {
+            if (IsLoggedDB)
+            {
+                if (tableName != "")
                 {
-                    string query = "INSERT INTO users (Name, Surname, Age) VALUES('" + _model.NameToInsert + "', '" + _model.FirstnameToInsert + "', '" + _model.AgeToInsert + "')";
-
-                    //Create command and assign the query and connection from the constructor
-                    MySqlCommand cmd = new MySqlCommand(query, _model.Conn);
-
-                    //Execute command
-                    cmd.ExecuteNonQuery();
-
-                    //Show the message that all has been created
-                    _view.Message("Votre utilisateur à été ajouter correctement, actualiser votre base de donnée pour verifier les changements");
+                    foreach (string nameOfTable in _model.TablesInDB)
+                    {
+                        if (tableName == nameOfTable)
+                        {
+                            _view.CanSeeTable();
+                        }
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    _view.Message("Une erreur est survenue dans la base de donnée : " + e.ToString());
+                    MessageBox.Show("Vous devez entrer un nom de table", "Une erreur est survenue", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                _view.Message("Une erreure est survenue lors de la création de votre utilisateur (vous n'avez peut être pas entrer les bonnes valeures)");
+                MessageBox.Show("Vous devez Vous connecter à une base de donnée", "Une erreur est survenue", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -382,10 +379,6 @@ namespace Gestion_de_base_de_donnée
                 dataReader.Close();
             }
         }
-
-        #endregion
-
-        #region Delete
 
         #endregion
 

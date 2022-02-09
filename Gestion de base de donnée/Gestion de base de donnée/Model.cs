@@ -86,8 +86,23 @@ namespace Gestion_de_base_de_donnée
             set { conn = value; }
         }
 
+        /// <summary>
+        /// Command my sql
+        /// </summary>
+        MySqlCommand cmd;
+
         //Array of list
         public List<string>[] Users;
+
+        /// <summary>
+        /// List of the name of databases on the server
+        /// </summary>
+        public List<string> DatabasesName = new List<string>();
+
+        /// <summary>
+        /// List of the name of databases on the server
+        /// </summary>
+        public List<string> TablesInDB = new List<string>();
 
         /// <summary>
         /// Connect the server on the app
@@ -115,7 +130,62 @@ namespace Gestion_de_base_de_donnée
             {
                 return false;
             }
+        }
 
+        /// <summary>
+        /// Get the databases name
+        /// </summary>
+        public void GetDatabases()
+        {
+            DatabasesName.Clear();
+
+            string query = "SHOW DATABASES";
+            //Create Command
+            cmd = new MySqlCommand(query, conn);
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            //Read the data and store them in the list
+            while (dataReader.Read())
+            {
+                DatabasesName.Add(Convert.ToString(dataReader["Database"]));
+            }
+
+            //Close reader
+            dataReader.Close();
+        }
+        
+        /// <summary>
+        /// Get the tables that exists in the db
+        /// </summary>
+        public void GetTable()
+        {
+            TablesInDB.Clear();
+
+            string query = "SHOW TABLES";
+            //Create Command
+            cmd = new MySqlCommand(query, conn);
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
+
+            //Read the data and store them in the list
+            while (dataReader.Read())
+            {
+                TablesInDB.Add(Convert.ToString(dataReader["Database"]));
+            }
+
+            //Close reader
+            dataReader.Close();
+        }
+
+        /// <summary>
+        /// Execute a non query command
+        /// </summary>
+        /// <param name="query">The query command</param>
+        public void QueryCMD(string query)
+        {
+            cmd = new MySqlCommand(query, conn);
+            cmd.ExecuteNonQuery();
         }
     }
 }

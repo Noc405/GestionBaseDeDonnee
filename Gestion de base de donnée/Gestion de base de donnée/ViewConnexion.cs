@@ -37,9 +37,13 @@ namespace Gestion_de_base_de_donnée
             _controler.ConnectServer(txtBoxAdress.Text, txtBoxPort.Text, txtBoxUserName.Text, txtBoxPassword.Text);
         }
 
+        /// <summary>
+        /// Logout the server
+        /// </summary>
         private void btnLogout_Click(object sender, EventArgs e)
         {
             _controler.LogoutServer();
+            lblUsersSelected.Text = "";
         }
 
         /// <summary>
@@ -51,23 +55,32 @@ namespace Gestion_de_base_de_donnée
 
             if (connectionSucces)
             {
-                _controler.IsLogged = true;
-                txtBoxTitleDB.Text = "";
+                _controler.AddDataBase(txtBoxTitleDB.Text);
+                ResetTextBox(txtBoxTitleDB, false);
             }
         }
 
+        /// <summary>
+        /// Delete the database
+        /// </summary>
         private void BtnDeleteDB_Click(object sender, EventArgs e)
         {
             bool deleteSuccess = _controler.DeleteDataBase(txtBoxTitleDB.Text);
 
             if (deleteSuccess)
             {
+                //Remove db from list of DBnames
+                _controler.RemoveDataBase(txtBoxTitleDB.Text);
+
+                //If the user is connected to a db logout him
                 if (txtBoxTitleDB.Text == _controler.getDbName())
                 {
-                    _controler.IsLogged = false;
+                    _controler.IsLoggedDB = false;
                     _controler.setDBName("");
                     lblDBNameConected.Text = "Veuillez vous connecter à une base de donnée";
                 }
+
+                ResetTextBox(txtBoxTitleDB, false);
             }
         }
 
@@ -80,12 +93,11 @@ namespace Gestion_de_base_de_donnée
         }
 
         /// <summary>
-        /// Insert a user
+        /// Show the table and the attribute
         /// </summary>
-        private void BtnInsert_Click(object sender, EventArgs e)
+        private void BtnGoToTable_Click(object sender, EventArgs e)
         {
-            _controler.InsertUser(_controler.VerifInfoUser(txtBoxCreateName, txtBoxCreateFirstname, txtBoxCreateAge));
-            ResetTextBoxInsert();
+            _controler.GoToTable(txtBoxGoToTable.Text);
         }
         
         /// <summary>
@@ -94,14 +106,19 @@ namespace Gestion_de_base_de_donnée
         private void BtnSelect_Click(object sender, EventArgs e)
         {
             _controler.SelectUsers(_controler.CheckWhatIsSelected(txtBoxSelectName, checkBoxSelectAll));
+            ResetTextBox(txtBoxSelectName, false);
         }
 
         /// <summary>
-        /// Delete a user
+        /// Write the db names to the label
         /// </summary>
-        private void BtnDelete_Click(object sender, EventArgs e)
+        /// <param name="DBNames">the list with the db names</param>
+        public void WriteDBToScreen(List<string> DBNames)
         {
-
+            foreach (string name in DBNames)
+            {
+                lblShowDB.Text += name + "\n";
+            }
         }
 
         /// <summary>
@@ -128,7 +145,10 @@ namespace Gestion_de_base_de_donnée
         /// <param name="message">The message to show</param>
         public void Message(string message)
         {
-            MessageBox.Show(message);
+            if (checkBoxShowMessages.Checked)
+            {
+                MessageBox.Show(message);
+            }
         }
 
         /// <summary>
@@ -138,6 +158,8 @@ namespace Gestion_de_base_de_donnée
         {
             pnlConnectedToServer.Visible = true;
             pnlGetConnexionToServer.Visible = false;
+            LoginServ(true);
+            GoToEditDB(true);
         }
 
         /// <summary>
@@ -148,73 +170,117 @@ namespace Gestion_de_base_de_donnée
             lblDBNameConected.Text = dbName;
             txtBoxConnectDBName.Text = "";
             lblUsersSelected.Text = "";
-            EnableButtons(true);
+            LoginServ(true);
+            GoToEditDB(true);
         }
 
         /// <summary>
         /// Set the variable when the user is logged out
         /// </summary>
         public void Logout()
-        { 
-            lblDBNameConected.Text = "Veuillez vous connecter à une base de donnée";
-            txtBoxConnectDBName.Text = "";
-            lblUsersSelected.Text = "";
-            pnlGetConnexionToServer.Visible = true;
-            pnlConnectedToServer.Visible = false;
-            EnableButtons(false);
-        }
-
-        /// <summary>
-        /// REset the textbox when the user press the insert button
-        /// </summary>
-        public void ResetTextBoxInsert()
         {
-            txtBoxCreateFirstname.Text = "";
-            txtBoxCreateName.Text = "";
-            txtBoxCreateAge.Text = "";
-            txtBoxCreateName.Select();
+            lblDBNameConected.Text = "Veuillez vous connecter à une base de donnée";
+            LoginServ(false);
+            GoToEditDB(false);
+            GoToEditTable(false);
         }
 
         /// <summary>
-        /// Enable the buttons and the textbox when the user login and disable it when he logout
+        /// Enable the panel when the user log in or log out the server
         /// </summary>
-        public void EnableButtons(bool login)
+        public void LoginServ(bool login)
         {
             if (login)
             {
-                btnDelete.Enabled = true;
-                btnSelect.Enabled = true;
-                btnInsert.Enabled = true;
-                txtBoxCreateAge.Enabled = true;
-                txtBoxCreateName.Enabled = true;
-                txtBoxCreateFirstname.Enabled = true;
-                txtBoxDeleteName.Enabled = true;
-                txtBoxSelectName.Enabled = true;
-                checkBoxSelectAll.Enabled = true;
-                btnCreateTable.Enabled = true;
-                txtBoxTitleTable.Enabled = true;
-                pnlLogedUser.Visible = true;
+                pnlConnectedToServer.Visible = true;
+                pnlGetConnexionToServer.Visible = false;
             }
             else
             {
-                btnDelete.Enabled = false;
-                btnSelect.Enabled = false;
-                btnInsert.Enabled = false;
-                txtBoxCreateAge.Enabled = false;
-                txtBoxCreateName.Enabled = false;
-                txtBoxCreateFirstname.Enabled = false;
-                txtBoxDeleteName.Enabled = false;
-                txtBoxSelectName.Enabled = false;
-                checkBoxSelectAll.Enabled = false;
-                btnCreateTable.Enabled = false;
-                txtBoxTitleTable.Enabled = false;
-                pnlLogedUser.Visible = false;
+                pnlConnectedToServer.Visible = false;
+                pnlGetConnexionToServer.Visible = true;
             }
+        }
+
+        /// <summary>
+        /// Enable the panel when the user is not connected to a table
+        /// </summary>
+        public void GoToEditDB(bool login)
+        {
+            if (login)
+            {
+                pnlEditDB.Location = new Point(0, 150);
+                pnlEditDB.Visible = true;
+                pnlConnectedToServer.Visible = true;
+                pnlGetConnexionToServer.Visible = false;
+            }
+            else
+            {
+                pnlEditDB.Visible = false;
+                pnlConnectedToServer.Visible = false;
+                pnlGetConnexionToServer.Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// Enable the panel when the user edit a table
+        /// </summary>
+        public void GoToEditTable(bool login)
+        {
+            if (login)
+            {
+                pnlEditTable.Location = new Point(0, 150);
+                pnlEditTable.Visible = true;
+                btnBack.Visible = true;
+            }
+            else
+            {
+                pnlEditTable.Visible = false;
+                btnBack.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// Show the table panel
+        /// </summary>
+        public void CanSeeTable()
+        {
+            pnlEditDB.Visible = false;
+            GoToEditTable(true);
+        }
+
+        /// <summary>
+        /// Reset a text box and select it if the user want
+        /// </summary>
+        /// <param name="txtBoxToReset">Text box to reset and select</param>
+        /// <param name="select">True if the user want to select it</param>
+        public void ResetTextBox(TextBox txtBoxToReset, bool select)
+        {
+            txtBoxToReset.Text = "";
+            if (select)
+            {
+                txtBoxToReset.Select();
+            }
+        }
+
+        /// <summary>
+        /// Reset the label of the db name
+        /// </summary>
+        public void RestLabelDBName()
+        {
+            lblShowDB.Text = "";
+            System.Threading.Thread.Sleep(10);
         }
 
         private void ViewConnexion_Load(object sender, EventArgs e)
         {
             pnlGetConnexionToServer.Location = new Point(0, 0);
+        }
+
+        private void BtnBack_Click(object sender, EventArgs e)
+        {
+            pnlEditDB.Visible = true;
+            GoToEditTable(false);
         }
     }
 }
